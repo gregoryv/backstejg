@@ -1,7 +1,9 @@
 package act
 
 import (
+	"encoding/gob"
 	"fmt"
+	"net"
 	"time"
 )
 
@@ -76,4 +78,18 @@ func NewEvent() *Event {
 
 func (s *Event) String() string {
 	return fmt.Sprintf("%s %s", EventNames[s.Code], s.ImageURI)
+}
+
+// SendAct gob encodes the arguments to the bind address
+func SendEvent(a *Event, bind string) error {
+	conn, err := net.Dial("tcp", bind)
+	if err != nil {
+		return err
+	}
+	defer conn.Close()
+	err = gob.NewEncoder(conn).Encode(a)
+	if err != nil {
+		return err
+	}
+	return nil
 }
