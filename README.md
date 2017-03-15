@@ -1,2 +1,5 @@
 # stejg
-Shared library for stejg interactions
+
+Shared libraries for [stejg](http://stejg.7de.se) interactions
+
+
