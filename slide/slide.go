@@ -6,12 +6,14 @@ import (
 )
 
 var (
-	light, dark, red         = "999999", "222222", "red"
-	h2Color                  = "555555"
 	size, x, y, ident  int32 = 78, size, gold(1, size), 0
-	fontColor, bgColor       = light, dark
+	fontColor       = "999999"
 	fontSize                 = size
 )
+
+func SetSize(s int32) {
+	size = s
+}
 
 func gold(min int, s int32) int32 {
 	res := float32(s)
@@ -29,23 +31,23 @@ func gold(min int, s int32) int32 {
 }
 
 func Basic(txt string) {
-	clear()
 	parts := strings.Split(txt, "\n")
 	for _, line := range parts {
 		if strings.Index(line, "# ") == 0 {
-			fontColor, fontSize, ident = light, gold(1, size), 0
+			fontSize, ident = gold(1, size), 0
 			li(line[2:])
 			continue
 		}
 		if strings.Index(line, "## ") == 0 {
-			fontColor, fontSize, ident = h2Color, gold(1, size), gold(2, size)
+			fontSize, ident = gold(1, size), 0
 			li(line[3:])
 			continue
 		}
-		if line != "" {
-			fontColor, fontSize, ident = light, gold(2, size), gold(1, size)
-			li(line)
+		if line == "" {
+			line = " "
 		}
+		fontSize, ident = gold(2, size), 0
+		li(line)
 	}
 }
 
@@ -64,16 +66,6 @@ func li(txt string) {
 	send(a)
 }
 
-func clear() {
-	send(&act.Event{
-		Code:    act.CLEAR,
-		BgColor: bgColor,
-	})
-	send(&act.Event{
-		Code:    act.HIDE,
-		BgColor: bgColor,
-	})
-}
 
 func send(a *act.Event) {
 	act.SendEvent(a, "localhost:9994")
