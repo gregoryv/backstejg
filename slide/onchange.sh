@@ -7,9 +7,11 @@ extension="${filename##*.}"
 nameonly="${filename%.*}"
 
 case $extension in
-    go)
+    go|sh)
         gofmt -w $path
 	go build .
+	pwd
+	go install ./show_slide
         ;;
 esac
 

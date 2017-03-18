@@ -6,13 +6,17 @@ import (
 )
 
 var (
-	size, x, y, ident  int32 = 78, size, gold(1, size), 0
-	fontColor       = "999999"
-	fontSize                 = size
+	size, x, y, ident int32 = 78, size, gold(1, size), 0
+	fontColor               = "999999"
+	fontSize                = size
 )
 
 func SetSize(s int32) {
 	size = s
+}
+
+func SetFontColor(color string) {
+	fontColor = color
 }
 
 func gold(min int, s int32) int32 {
@@ -65,7 +69,6 @@ func li(txt string) {
 	y += fontSize + gold(2, fontSize) // New line
 	send(a)
 }
-
 
 func send(a *act.Event) {
 	act.SendEvent(a, "localhost:9994")
