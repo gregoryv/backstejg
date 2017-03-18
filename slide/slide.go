@@ -39,29 +39,30 @@ func Basic(txt string) {
 	for _, line := range parts {
 		if strings.Index(line, "# ") == 0 {
 			fontSize, ident = gold(1, size), 0
-			li(line[2:])
+			li(line[2:], "FreeSerif")
 			continue
 		}
 		if strings.Index(line, "## ") == 0 {
-			fontSize, ident = gold(1, size), 0
-			li(line[3:])
+			fontSize, ident = gold(2, size), 0
+			li(line[3:], "FreeSerif")
 			continue
 		}
 		if line == "" {
 			line = " "
 		}
-		fontSize, ident = gold(2, size), 0
-		li(line)
+		fontSize, ident = gold(3, size), 0
+		li(line, "FreeSans")
 	}
 }
 
-func li(txt string) {
+func li(txt, font string) {
 	a := &act.Event{
 		Code:      act.NONE,
 		Delay:     1,
 		Text:      txt,
 		FontColor: fontColor,
 		FontSize:  int(fontSize),
+		Font:      font,
 		X:         x + ident,
 		Y:         y,
 	}

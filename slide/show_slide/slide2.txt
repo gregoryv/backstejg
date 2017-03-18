@@ -2,13 +2,13 @@
 
 From http://who-t.blogspot.se/2009/12/on-commit-messages.html
 
-# Summary line
+## Summary line
 
 - Imperitive mode: "Fix", "Add", "Change"
 - Don't end with period, it's a title.
 - Always leave the second line blank.
 
-# Message
+## Message
 
 - Why is it necessary? It may fix a bug, it may add a feature, it may
   improve performance, reliabilty, stability, or just be a change for
