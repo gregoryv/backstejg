@@ -1,7 +1,7 @@
 package slide
 
 import (
-	"github.com/gregoryv/stejg/act"
+	"github.com/gregoryv/backstejg/act"
 	"strings"
 )
 

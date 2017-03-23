@@ -59,6 +59,7 @@ type Event struct {
 	BgColor   string
 	Text      string
 	Multiply  int
+	Points   []int // Points are for geometric shapes, x1,y1,...,xN,yN
 }
 
 func NewEvent() *Event {

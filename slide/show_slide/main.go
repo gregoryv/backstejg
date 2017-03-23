@@ -2,7 +2,7 @@ package main
 
 import (
 	"flag"
-	"github.com/gregoryv/stejg/slide"
+	"github.com/gregoryv/backstejg/slide"
 	"io/ioutil"
 	"os"
 )
