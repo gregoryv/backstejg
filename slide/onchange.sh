@@ -10,7 +10,6 @@ case $extension in
     go|sh)
         gofmt -w $path
 	go build .
-	pwd
 	go install ./show_slide
         ;;
 esac
