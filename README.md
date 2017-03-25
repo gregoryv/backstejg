@@ -1,9 +1,13 @@
-# stejg
+# back-stejg
 
-Visualization swiss army knife [stejg](http://stejg.7de.se)
+go library for interacting with [stejg](http://stejg.7de.se)
 
 ## Example applications
 
-### [slide/show_slide](../../tree/master/slide)
+### [slide](../../tree/master/slide)
 
-Rendering markdown text as simple slides.
+The idea is to use markdown when creating presentations.
+Which has the benefit of
+
+- Easy to version control and share
+- Minimal effort to write
