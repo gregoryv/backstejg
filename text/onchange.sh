@@ -10,7 +10,7 @@ case $extension in
     go|sh)
         gofmt -w $path
 	go build .
-	go install ./show_slide
+	go install ./texter
         ;;
 esac
 

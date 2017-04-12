@@ -1,4 +1,4 @@
-package slide
+package text
 
 import (
 	"github.com/gregoryv/backstejg/act"

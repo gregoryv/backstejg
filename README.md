@@ -4,10 +4,8 @@ go library for interacting with [stejg](http://stejg.7de.se)
 
 ## Example applications
 
-### [slide](../../tree/master/slide)
+### [text](../../tree/master/text)
 
-The idea is to use markdown when creating presentations.
-Which has the benefit of
+Rendering text in various ways, eg. Markdown.
 
-- Easy to version control and share
-- Minimal effort to write
+    texter -fs 102 file.md
