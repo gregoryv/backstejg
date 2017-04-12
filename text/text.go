@@ -34,28 +34,28 @@ func gold(min int, s int32) int32 {
 	return int32(res)
 }
 
-func Basic(txt string) {
-	parts := strings.Split(txt, "\n")
-	for _, line := range parts {
-		if strings.Index(line, "# ") == 0 {
-			fontSize, ident = gold(1, size), 0
-			li(line[2:], "FreeSerif")
-			continue
-		}
-		if strings.Index(line, "## ") == 0 {
-			fontSize, ident = gold(2, size), 0
-			li(line[3:], "FreeSerif")
-			continue
-		}
+func BasicMarkdown(txt string) {
+	for _, line := range strings.Split(txt, "\n") {
+		// Poor mans parsing of markdown, far from complete
+		// expanded on a need to basis
 		if line == "" {
 			line = " "
 		}
-		fontSize, ident = gold(3, size), 0
-		li(line, "FreeSans")
+		switch true {
+		case strings.Index(line, "# ") == 0:
+			fontSize, ident = gold(1, size), 0
+			write(line[2:], "FreeSerif")
+		case strings.Index(line, "## ") == 0:
+			fontSize, ident = gold(2, size), 0
+			write(line[3:], "FreeSerif")
+		default:
+			fontSize, ident = gold(3, size), 0
+			write(line, "FreeSans")
+		}
 	}
 }
 
-func li(txt, font string) {
+func write(txt, font string) {
 	a := &act.Event{
 		Code:      act.NONE,
 		Delay:     1,

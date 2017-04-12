@@ -29,5 +29,5 @@ func main() {
 
 	text.SetSize(int32(*size))
 	text.SetFontColor(*fontColor)
-	text.Basic(string(txt))
+	text.BasicMarkdown(string(txt))
 }
