@@ -7,9 +7,10 @@ extension="${filename##*.}"
 nameonly="${filename%.*}"
 
 case $extension in
-    go)
+    go|sh)
         gofmt -w $path
-	go build .
+	go build ./act ./text
+	go install ./text/texter
         ;;
 esac
 
