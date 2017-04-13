@@ -8,5 +8,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
-- slide_show example for slide rendering of markdown like files
+- texter example for rendering text files
 
