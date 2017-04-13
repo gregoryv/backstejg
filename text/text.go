@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	size, x, y, ident int32 = 78, size, gold(1, size), 0
+	size, x, y, ident int32 = 18, size, gold(1, size), 0
 	fontColor               = "999999"
 	fontSize                = size
 )
@@ -25,7 +25,7 @@ func gold(min int, s int32) int32 {
 		return size
 	}
 	for {
-		res = res / 1.61 // golden mean
+		res = res * 1.61 // golden mean
 		min--
 		if min == 0 {
 			break
@@ -34,49 +34,36 @@ func gold(min int, s int32) int32 {
 	return int32(res)
 }
 
-type Markdown struct{}
-
-func NewMarkdown() *Markdown {
-	return &Markdown{}
-}
-
-func (m *Markdown) Render(txt string) {
-	for _, line := range strings.Split(txt, "\n") {
-		// Poor mans parsing of markdown, far from complete
-		// expanded on a need to basis
-		if line == "" {
-			line = " "
-		}
-		switch true {
-		case strings.Index(line, "# ") == 0:
-			fontSize, ident = gold(1, size), 0
-			write(line[2:], "FreeSerif")
-		case strings.Index(line, "## ") == 0:
-			fontSize, ident = gold(2, size), 0
-			write(line[3:], "FreeSerif")
-		default:
-			fontSize, ident = gold(3, size), 0
-			write(line, "FreeSans")
-		}
-	}
-}
-
-func write(txt, font string) {
+func write(txt, font string, fs, ident int32) {
 	a := &act.Event{
 		Code:      act.NONE,
 		Delay:     1,
 		Text:      txt,
 		FontColor: fontColor,
-		FontSize:  int(fontSize),
+		FontSize:  int(fs),
 		Font:      font,
 		X:         x + ident,
 		Y:         y,
 	}
-	ident = 0
-	y += fontSize + gold(2, fontSize) // New line
+	y += fs + gold(0, fontSize)/2 // New line
 	send(a)
 }
 
 func send(a *act.Event) {
 	act.SendEvent(a, "localhost:9994")
+}
+
+type Plain struct {
+	fontSize int32
+	ident    int32
+}
+
+func NewPlain() *Plain {
+	return &Plain{fontSize: size, ident: ident}
+}
+
+func (p *Plain) Render(txt string) {
+	for _, line := range strings.Split(txt, "\n") {
+		write(line, "FreeMono", p.fontSize, p.ident)
+	}
 }

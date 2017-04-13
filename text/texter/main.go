@@ -6,9 +6,10 @@ import (
 	"github.com/gregoryv/backstejg/text"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 )
 
-var size = flag.Int("fs", 72, "font size of title, other text is adapted using golden mean")
+var size = flag.Int("fs", 18, "font size of title, other text is adapted using golden mean")
 var fontColor = flag.String("fc", "999999", "font color")
 
 func main() {
@@ -29,10 +30,16 @@ func main() {
 		os.Exit(1)
 	}
 
-	// Main title font size
 	text.SetSize(int32(*size))
 	text.SetFontColor(*fontColor)
 
-	format := text.NewMarkdown()
-	format.Render(string(txt))
+	ext := filepath.Ext(file)
+	switch ext {
+	case ".md":
+		format := text.NewMarkdown()
+		format.Render(string(txt))
+	default:
+		format := text.NewPlain()
+		format.Render(string(txt))
+	}
 }
