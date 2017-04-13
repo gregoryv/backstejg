@@ -1,3 +1,4 @@
+// texter, text actor for stejg, stejg.7de.se
 package main
 
 import (
@@ -12,14 +13,15 @@ var fontColor = flag.String("fc", "999999", "font color")
 
 func main() {
 	flag.Parse()
-
 	if len(flag.Args()) == 0 {
 		print("Usage: texter [OPTIONS] text_file\n\nOptions\n")
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
-	file := flag.Args()[0]
 
+	// Load the entire file, useless to try to render very large
+	// files anyway so this is ok.
+	file := flag.Args()[0]
 	txt, err := ioutil.ReadFile(file)
 	if err != nil {
 		print(err.Error(), "\n")
@@ -27,6 +29,7 @@ func main() {
 		os.Exit(1)
 	}
 
+	// Main title font size
 	text.SetSize(int32(*size))
 	text.SetFontColor(*fontColor)
 	text.BasicMarkdown(string(txt))
