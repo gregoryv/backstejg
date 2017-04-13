@@ -32,5 +32,7 @@ func main() {
 	// Main title font size
 	text.SetSize(int32(*size))
 	text.SetFontColor(*fontColor)
-	text.BasicMarkdown(string(txt))
+
+	format := text.NewMarkdown()
+	format.Render(string(txt))
 }

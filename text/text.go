@@ -34,7 +34,13 @@ func gold(min int, s int32) int32 {
 	return int32(res)
 }
 
-func BasicMarkdown(txt string) {
+type Markdown struct{}
+
+func NewMarkdown() *Markdown {
+	return &Markdown{}
+}
+
+func (m *Markdown) Render(txt string) {
 	for _, line := range strings.Split(txt, "\n") {
 		// Poor mans parsing of markdown, far from complete
 		// expanded on a need to basis
