@@ -81,7 +81,7 @@ func (s *Event) String() string {
 	return fmt.Sprintf("%s %s", EventNames[s.Code], s.ImageURI)
 }
 
-// SendAct gob encodes the arguments to the bind address
+// SendEvent gob encodes the arguments to the bind address
 func SendEvent(a *Event, bind string) error {
 	conn, err := net.Dial("tcp", bind)
 	if err != nil {
