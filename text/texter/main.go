@@ -2,6 +2,7 @@
 package main
 
 import (
+	"bytes"
 	"flag"
 	"github.com/gregoryv/backstejg/text"
 	"io/ioutil"
@@ -40,6 +41,9 @@ func main() {
 		format.Render(string(txt))
 	default:
 		format := text.NewPlain()
+		tab := []byte("\t")
+		spaces := []byte("    ")
+		txt = bytes.Replace(txt, tab, spaces, -1)
 		format.Render(string(txt))
 	}
 }
