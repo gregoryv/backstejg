@@ -11,6 +11,11 @@ var (
 	fontSize                = size
 )
 
+func SetPosition(xpos, ypos int32) {
+	x = xpos
+	y = ypos
+}
+
 func SetSize(s int32) {
 	size = s
 }
