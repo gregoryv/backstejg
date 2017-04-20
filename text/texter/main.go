@@ -12,6 +12,8 @@ import (
 
 var size = flag.Int("fs", 18, "font size of title, other text is adapted using golden mean")
 var fontColor = flag.String("fc", "999999", "font color")
+var x = flag.Int("x", 0, "x position")
+var y = flag.Int("y", 0, "y position")
 
 func main() {
 	flag.Parse()
@@ -33,6 +35,7 @@ func main() {
 
 	text.SetSize(int32(*size))
 	text.SetFontColor(*fontColor)
+	text.SetPosition(int32(*x), int32(*y))
 
 	ext := filepath.Ext(file)
 	switch ext {
