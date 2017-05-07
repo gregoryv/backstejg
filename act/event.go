@@ -60,6 +60,7 @@ type Event struct {
 	Text      string
 	Multiply  int
 	Points    []int // Points are for geometric shapes, x1,y1,...,xN,yN
+	DimSpeed  int   // 1..255
 }
 
 func NewEvent() *Event {
@@ -74,6 +75,7 @@ func NewEvent() *Event {
 		FontSize:  34,
 		BgColor:   "000000",
 		Text:      "",
+		DimSpeed:  3,
 	}
 }
 
