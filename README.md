@@ -10,7 +10,3 @@ Rendering text in various ways, eg. Markdown.
 
     texter -fs 102 file.md
 
-## Todo
-
-- Use different rendering methods in texter depending
-  on file suffix
