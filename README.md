@@ -7,6 +7,9 @@ go library for interacting with [stejg](http://stejg.7de.se)
     go install github.com/gregoryv/backstejg/text/texter
     texter file.md
 
+	go install github.com/gregoryv/backstejg/spinner
+	spinner -x 200 -y 200 -r 40 -fc yellow
+	
 ## Write your own actors
 
     go get github.com/gregoryv/backstejg

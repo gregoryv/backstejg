@@ -11,6 +11,7 @@ case $extension in
         gofmt -w $path
 	go build ./act ./text
 	go install ./text/texter
+	go install ./spinner
         ;;
 esac
 
