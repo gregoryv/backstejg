@@ -2,11 +2,16 @@
 
 go library for interacting with [stejg](http://stejg.7de.se)
 
-## Example actor applications
+## Getting started
 
-### [text](../../tree/master/text)
+    go install github.com/gregoryv/backstejg/text/texter
+    texter file.md
 
-Rendering text in various ways, eg. Markdown.
+## Write your own actors
 
-    texter -fs 102 file.md
+    go get github.com/gregoryv/backstejg
+   
+    import "github.com/gregoryv/backstejg/act"
+   
 
+Check out eg. the texter source code for how to send events to stejg.
