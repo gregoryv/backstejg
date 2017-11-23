@@ -16,6 +16,7 @@ const (
 	HIDE
 	SAVE
 	REDRAW
+	REMOVE
 
 	// Effects
 	FADE_OUT
@@ -28,6 +29,7 @@ var NamedCommands = map[string]int32{
 	"pause": PAUSE,
 	"hide":  HIDE,
 	"save":  SAVE,
+	"rm":    REMOVE,
 }
 
 var NamedEffects = map[string]int32{
@@ -59,8 +61,9 @@ type Event struct {
 	BgColor   string
 	Text      string
 	Multiply  int
-	Points    []int // Points are for geometric shapes, x1,y1,...,xN,yN
-	DimSpeed  int   // 1..255
+	Points    []int  // Points are for geometric shapes, x1,y1,...,xN,yN
+	DimSpeed  int    // 1..255
+	Tag       string // Tagging events enables post manipulation
 }
 
 func NewEvent() *Event {
@@ -76,6 +79,7 @@ func NewEvent() *Event {
 		BgColor:   "000000",
 		Text:      "",
 		DimSpeed:  3,
+		Tag:       "",
 	}
 }
 
