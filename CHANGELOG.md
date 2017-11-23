@@ -8,5 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 
+- 'rm' command to remove tagged objects
+- Tag events for post modification
 - texter example for rendering text files
-
