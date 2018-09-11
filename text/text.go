@@ -1,6 +1,7 @@
 package text
 
 import (
+	"fmt"
 	"github.com/gregoryv/backstejg/act"
 	"os"
 	"strings"
@@ -33,15 +34,15 @@ func (p *Plain) write(txt, font string) {
 		Y:         p.Y,
 	}
 	p.Y += p.FontSize + p.gold(0, p.FontSize)/2 // New line
-	send(a)
+	p.send(a)
 }
 
-func send(a *act.Event) {
-	bind := os.Getenv("STEJG_BIND")
-	if bind == "" {
-		bind = "localhost:9994"
+func (p *Plain) send(a *act.Event) {
+	if p.Bind == "" {
+		fmt.Fprint(os.Stderr, "Bind is not set")
+		os.Exit(1)
 	}
-	act.SendEvent(a, bind)
+	act.SendEvent(a, p.Bind)
 }
 
 type Plain struct {
@@ -49,17 +50,21 @@ type Plain struct {
 	Ident      int32
 	Size, X, Y int32
 	FontColor  string
+	Bind       string
 }
 
 func NewPlain() *Plain {
 	size := int32(18)
-	return &Plain{
-		FontSize:  p.size,
+	p := &Plain{
+		FontSize:  size,
 		Ident:     0,
-		X:         p.gold(1, size),
+		Size:      size,
 		Y:         0,
 		FontColor: "999999",
+		Bind:      os.Getenv("STEJG_BIND"),
 	}
+	p.X = p.gold(1, size)
+	return p
 }
 
 func (p *Plain) Render(txt string) {

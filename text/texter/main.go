@@ -41,22 +41,18 @@ func main() {
 	}
 
 	ext := filepath.Ext(file)
+	format := text.NewPlain()
+	format.SetSize(int32(*size))
+	format.SetFontColor(*fontColor)
+	format.SetPosition(int32(*x), int32(*y))
+
 	switch ext {
 	case ".md":
-		format := text.NewMarkdown()
-		format.SetSize(int32(*size))
-		format.SetFontColor(*fontColor)
-		format.SetPosition(int32(*x), int32(*y))
-		format.Render(string(txt))
+		format.RenderMarkdown(string(txt))
 	default:
-		format := text.NewPlain()
-		format.SetSize(int32(*size))
-		format.SetFontColor(*fontColor)
-		format.SetPosition(int32(*x), int32(*y))
 		tab := []byte("\t")
 		spaces := []byte("    ")
 		txt = bytes.Replace(txt, tab, spaces, -1)
 		format.Render(string(txt))
 	}
-
 }
