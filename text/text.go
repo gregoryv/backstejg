@@ -2,32 +2,14 @@ package text
 
 import (
 	"github.com/gregoryv/backstejg/act"
+	"os"
 	"strings"
 )
 
-var (
-	size, x, y, ident int32 = 18, size, gold(1, size), 0
-	fontColor               = "999999"
-	fontSize                = size
-)
-
-func SetPosition(xpos, ypos int32) {
-	x = xpos
-	y = ypos
-}
-
-func SetSize(s int32) {
-	size = s
-}
-
-func SetFontColor(color string) {
-	fontColor = color
-}
-
-func gold(min int, s int32) int32 {
+func (p *Plain) gold(min int, s int32) int32 {
 	res := float32(s)
 	if min <= 0 {
-		return size
+		return p.Size
 	}
 	for {
 		res = res * 1.61 // golden mean
@@ -39,36 +21,57 @@ func gold(min int, s int32) int32 {
 	return int32(res)
 }
 
-func write(txt, font string, fs, ident int32) {
+func (p *Plain) write(txt, font string) {
 	a := &act.Event{
 		Code:      act.NONE,
 		Delay:     1,
 		Text:      txt,
-		FontColor: fontColor,
-		FontSize:  int(fs),
+		FontColor: p.FontColor,
+		FontSize:  int(p.FontSize),
 		Font:      font,
-		X:         x + ident,
-		Y:         y,
+		X:         p.X + p.Ident,
+		Y:         p.Y,
 	}
-	y += fs + gold(0, fontSize)/2 // New line
+	p.Y += p.FontSize + p.gold(0, p.FontSize)/2 // New line
 	send(a)
 }
 
 func send(a *act.Event) {
-	act.SendEvent(a, "localhost:9994")
+	bind := os.Getenv("STEJG_BIND")
+	if bind == "" {
+		bind = "localhost:9994"
+	}
+	act.SendEvent(a, bind)
 }
 
 type Plain struct {
-	fontSize int32
-	ident    int32
+	FontSize   int32
+	Ident      int32
+	Size, X, Y int32
+	FontColor  string
 }
 
 func NewPlain() *Plain {
-	return &Plain{fontSize: size, ident: ident}
+	size := int32(18)
+	return &Plain{
+		FontSize:  p.size,
+		Ident:     0,
+		X:         p.gold(1, size),
+		Y:         0,
+		FontColor: "999999",
+	}
 }
 
 func (p *Plain) Render(txt string) {
 	for _, line := range strings.Split(txt, "\n") {
-		write(line, "FreeMono", p.fontSize, p.ident)
+		p.write(line, "FreeMono")
 	}
 }
+
+func (p *Plain) SetPosition(xpos, ypos int32) {
+	p.X = xpos
+	p.Y = ypos
+}
+
+func (p *Plain) SetSize(s int32)           { p.Size = s }
+func (p *Plain) SetFontColor(color string) { p.FontColor = color }

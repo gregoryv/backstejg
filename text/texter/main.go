@@ -14,6 +14,7 @@ var size = flag.Int("fs", 18, "font size of title, other text is adapted using g
 var fontColor = flag.String("fc", "999999", "font color")
 var x = flag.Int("x", 0, "x position")
 var y = flag.Int("y", 0, "y position")
+var showPath = flag.Bool("p", false, "show path to file")
 
 func main() {
 	flag.Parse()
@@ -33,20 +34,29 @@ func main() {
 		os.Exit(1)
 	}
 
-	text.SetSize(int32(*size))
-	text.SetFontColor(*fontColor)
-	text.SetPosition(int32(*x), int32(*y))
+	if *showPath {
+		format := text.NewPlain()
+		format.Render(string(file))
+		*y += *size // Render text below filename
+	}
 
 	ext := filepath.Ext(file)
 	switch ext {
 	case ".md":
 		format := text.NewMarkdown()
+		format.SetSize(int32(*size))
+		format.SetFontColor(*fontColor)
+		format.SetPosition(int32(*x), int32(*y))
 		format.Render(string(txt))
 	default:
 		format := text.NewPlain()
+		format.SetSize(int32(*size))
+		format.SetFontColor(*fontColor)
+		format.SetPosition(int32(*x), int32(*y))
 		tab := []byte("\t")
 		spaces := []byte("    ")
 		txt = bytes.Replace(txt, tab, spaces, -1)
 		format.Render(string(txt))
 	}
+
 }

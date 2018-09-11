@@ -4,15 +4,7 @@ import (
 	"strings"
 )
 
-type Markdown struct {
-	fontSize int32
-}
-
-func NewMarkdown() *Markdown {
-	return &Markdown{fontSize: size}
-}
-
-func (m *Markdown) Render(txt string) {
+func (p *Plain) RenderMarkdown(txt string) {
 	for _, line := range strings.Split(txt, "\n") {
 		// Poor mans parsing of markdown, far from complete
 		// expanded on a need to basis
@@ -21,15 +13,20 @@ func (m *Markdown) Render(txt string) {
 		}
 		switch true {
 		case strings.Index(line, "# ") == 0:
-			write(line[2:], "FreeSerif", gold(3, m.fontSize), 0)
+			p.FontSize = p.gold(3, p.FontSize)
+			p.write(line[2:], "FreeSerif")
 		case strings.Index(line, "## ") == 0:
-			write(line[3:], "FreeSerif", gold(2, m.fontSize), 0)
+			p.FontSize = p.gold(2, p.FontSize)
+			p.write(line[3:], "FreeSerif")
 		case strings.Index(line, "### ") == 0:
-			write(line[4:], "FreeSerif", gold(1, m.fontSize), 0)
+			p.FontSize = p.gold(1, p.FontSize)
+			p.write(line[4:], "FreeSerif")
 		case strings.Index(line, "    ") == 0:
-			write(line, "FreeMono", gold(1, m.fontSize), 0)
+			p.FontSize = p.gold(1, p.FontSize)
+			p.write(line, "FreeMono")
 		default:
-			write(line, "FreeSans", gold(0, size), 0)
+			p.FontSize = p.gold(0, p.Size)
+			p.write(line, "FreeSans")
 		}
 	}
 }
