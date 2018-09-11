@@ -3,7 +3,6 @@ package text
 import (
 	"fmt"
 	"github.com/gregoryv/backstejg/act"
-	"os"
 	"strings"
 )
 
@@ -37,10 +36,9 @@ func (p *Plain) write(txt, font string) {
 	p.send(a)
 }
 
-func (p *Plain) send(a *act.Event) {
+func (p *Plain) send(a *act.Event) error {
 	if p.Bind == "" {
-		fmt.Fprint(os.Stderr, "Bind is not set")
-		os.Exit(1)
+		return fmt.Errorf("Plain.Bind not set")
 	}
 	act.SendEvent(a, p.Bind)
 }
