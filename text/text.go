@@ -3,6 +3,7 @@ package text
 import (
 	"fmt"
 	"github.com/gregoryv/backstejg/act"
+	"os"
 	"strings"
 )
 
@@ -40,7 +41,7 @@ func (p *Plain) send(a *act.Event) error {
 	if p.Bind == "" {
 		return fmt.Errorf("Plain.Bind not set")
 	}
-	act.SendEvent(a, p.Bind)
+	return act.SendEvent(a, p.Bind)
 }
 
 type Plain struct {
