@@ -15,23 +15,23 @@ var r = flag.Int("r", 30, "radius")
 func main() {
 	flag.Parse()
 	for a := 450.0; a >= 90.0; a -= 20.0 {
-		points := genPoints(*x, *y, float64(*r), a)
+		points := genPoints(int32(*x), int32(*y), float64(*r), a)
 		drawLine(points)
 		time.Sleep(30 * time.Millisecond)
 	}
 }
 
-func genPoints(x, y int, radius, angle float64) []int {
-	points := make([]int, 4)
+func genPoints(x, y int32, radius, angle float64) []int32 {
+	points := make([]int32, 4)
 	rad := angle * 3.14 / 180
-	points[0] = x + int(math.Cos(rad)*radius)
-	points[1] = y - int(math.Sin(rad)*radius)
+	points[0] = x + int32(math.Cos(rad)*radius)
+	points[1] = y - int32(math.Sin(rad)*radius)
 	points[2] = x
 	points[3] = y
 	return points
 }
 
-func drawLine(points []int) {
+func drawLine(points []int32) {
 	a := &act.Event{
 		Code:      act.FADE_OUT,
 		Delay:     0,

@@ -61,9 +61,9 @@ type Event struct {
 	BgColor   string
 	Text      string
 	Multiply  int
-	Points    []int  // Points are for geometric shapes, x1,y1,...,xN,yN
-	DimSpeed  int    // 1..255
-	Tag       string // Tagging events enables post manipulation
+	Points    []int32 // Points are for geometric shapes, x1,y1,...,xN,yN
+	DimSpeed  int     // 1..255
+	Tag       string  // Tagging events enables post manipulation
 }
 
 func NewEvent() *Event {
